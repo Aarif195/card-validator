@@ -11,6 +11,12 @@ export class CardService {
     // Remove spaces or dashes and check if it's numeric
     const sanitized = cardNumber.replace(/\D/g, '');
     
+    // Check if it contains ONLY digits after removing separators
+    if (!/^\d+$/.test(sanitized)) {
+      return { isValid: false, message: 'Card number must contain only digits' };
+    }
+
+    // Check length (Standard cards are 13-19 digits)
     if (sanitized.length < 13 || sanitized.length > 19) {
       return { isValid: false, message: 'Invalid card length' };
     }

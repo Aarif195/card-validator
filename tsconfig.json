@@ -19,5 +19,11 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": false,
     "strict": true
-  }
+  },
+    "include": ["src"],
+  "exclude": [
+    "node_modules",
+    "card-validator-ui",
+    "dist"
+  ]
 }

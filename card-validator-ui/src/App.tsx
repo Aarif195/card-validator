@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { validateCard } from './api';
 
 function App() {
@@ -6,6 +6,7 @@ function App() {
   const [result, setResult] = useState<{ isValid: boolean; message: string } | null>(null);
   const [loading, setLoading] = useState(false);
 
+  // Handle form submission
   const handleValidate = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -15,13 +16,25 @@ function App() {
     } catch (error: any) {
       setResult({ isValid: false, message: error.message || 'Server error' });
     } finally {
+      setCardNumber('');
       setLoading(false);
     }
   };
 
+  // Clear result after 5 seconds
+  useEffect(() => {
+    if (!result) return;
+
+    const timer = setTimeout(() => {
+      setResult(null);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [result]);
+
   return (
     <div className="min-h-screen w-full bg-gray-50 flex items-center justify-center p-4 font-sans">
-      <div 
+      <div
         className="w-full max-w-md bg-white rounded-2xl p-6 sm:p-10 transition-all"
         style={{ boxShadow: 'rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px' }}
       >
@@ -55,11 +68,10 @@ function App() {
         </form>
 
         {result && (
-          <div className={`mt-8 p-4 rounded-xl border-l-4 animate-in fade-in slide-in-from-top-2 duration-300 ${
-            result.isValid 
-              ? 'bg-green-50 border-green-500 text-green-800' 
+          <div className={`mt-8 p-4 rounded-xl border-l-4 animate-in fade-in slide-in-from-top-2 duration-300 ${result.isValid
+              ? 'bg-green-50 border-green-500 text-green-800'
               : 'bg-red-50 border-red-500 text-red-800'
-          }`}>
+            }`}>
             <div className="flex items-center gap-3">
               <span className="text-lg">{result.isValid ? '✓' : '✕'}</span>
               <p className="font-medium">{result.message}</p>

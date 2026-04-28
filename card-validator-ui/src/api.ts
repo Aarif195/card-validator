@@ -6,7 +6,7 @@ export const validateCard = async (cardNumber: string) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ cardNumber }),
   });
-  
+
   if (!response.ok) {
     const errorData = await response.json();
     throw new Error(errorData.message || 'Validation failed');

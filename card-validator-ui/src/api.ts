@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000';
+const API_URL = 'https://card-validator-s6nz.onrender.com';
 
 export const validateCard = async (cardNumber: string) => {
   const response = await fetch(`${API_URL}/cards/validate`, {

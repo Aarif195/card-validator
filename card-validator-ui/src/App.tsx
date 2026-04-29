@@ -61,7 +61,7 @@ function App() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-gray-900 text-white py-3.5 rounded-xl font-bold hover:bg-black transition-all active:scale-95 disabled:opacity-50 disabled:pointer-events-none curs"
+            className="w-full bg-gray-900 text-white py-3.5 rounded-xl font-bold hover:bg-black transition-all active:scale-95 disabled:opacity-50 disabled:pointer-events-none curs cursor-pointer"
           >
             {loading ? 'Validating...' : 'Verify Card'}
           </button>
